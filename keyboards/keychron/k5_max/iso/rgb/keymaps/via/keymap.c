@@ -1,19 +1,3 @@
-/* Copyright 2024 @ Keychron (https://www.keychron.com)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
@@ -23,6 +7,11 @@ enum layers {
     WIN_BASE,
     WIN_FN,
 };
+
+volatile bool g_capslock = false;
+volatile bool g_numlock  = false;
+
+bool g_rgb_held[RGB_MATRIX_LED_COUNT] = {0};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -59,10 +48,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______, _______,  _______,  _______, _______,          _______, _______),
 };
 
-// clang-format on
+
+void keyboard_post_init_user(void) {
+    // Initialize RGB matrix
+    rgb_matrix_enable_noeeprom();
+
+    // Start in your custom reactive effect (red base, white on keypress)
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_REACTIVE_SOLID);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron_common(keycode, record)) {
-        return false;
+    uint8_t led[LED_HITS_TO_REMEMBER];
+    uint8_t cnt = rgb_matrix_map_row_column_to_led(record->event.key.row, record->event.key.col, led);
+
+    for (uint8_t i = 0; i < cnt; i++) {
+        if (led[i] != NO_LED) {
+            g_rgb_held[led[i]] = record->event.pressed;
+        }
     }
+
+    return true;
+}
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    (void)led_min;
+    (void)led_max;
+
+    led_t st = host_keyboard_led_state();
+    g_capslock = st.caps_lock;
+    g_numlock  = st.num_lock;
+
     return true;
 }

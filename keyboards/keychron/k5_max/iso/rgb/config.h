@@ -37,7 +37,7 @@
 #    define SNLED27351_CURRENT_TUNE \
         { 0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 0x12 }
 
-/* Set to infinit, which is use in USB mode by default */
+/* Set to infinite, which is used in USB mode by default */
 #    define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
 
 /* Allow shutdown of led driver to save power */
@@ -51,5 +51,14 @@
 
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+    /* Built-in effects to enable */
+#    define ENABLE_RGB_MATRIX_SOLID_COLOR
+#    define ENABLE_RGB_MATRIX_BREATHING
+#    define ENABLE_RGB_MATRIX_CYCLE_ALL
+
+#    define RGB_MATRIX_SAT_STEP 8
+#    define RGB_MATRIX_VAL_STEP 8
+#    define RGB_MATRIX_HUE_STEP 8
 
 #endif
