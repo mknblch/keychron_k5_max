@@ -1,4 +1,4 @@
-# Keychron K5 Max (QMK) — Solid Background with afterglow effect (VIA)
+# Keychron K5 Max ISO RGB (QMK) — Solid background with afterglow effect (VIA)
 
 This repository contains a QMK firmware build for the **Keychron K5 Max** featuring a custom RGB matrix effect.
 A **changeable solid background color** with a **reactive afterglow** on keypress. Capslock and Numlock are
@@ -10,6 +10,8 @@ It is **VIA-enabled**, so you can remap keys and adjust supported lighting param
 
 ## Usage
 
+The effect can be selected using the RGB-Mode keys on the keyboard, but it won't show up in the VIA effects list.
+
 - **Hue** controls the background color.
 - **Brightness** controls the background intensity.
 - **Saturation** controls the *colorfulness/intensity* of the afterglow relative to the background.
@@ -17,7 +19,13 @@ It is **VIA-enabled**, so you can remap keys and adjust supported lighting param
 
 ---
 
+## Build
+
+Use `make keychron/k5_max/iso/rgb:via` to build the firmware 
+and `make keychron/k5_max/iso/rgb:via:flash` to flash it.
+
 ## VIA
+
 This firmware is built with **VIA support** enabled.
 
 - Use VIA to change key mappings.
@@ -26,6 +34,7 @@ This firmware is built with **VIA support** enabled.
 ---
 
 ## Notes
+
 - This is a QMK-based firmware intended specifically for the **Keychron K5 Max**.
 - If you’re looking for upstream QMK documentation, see: https://github.com/qmk/qmk_firmware
 - Base for the Keychron K5 Max firmware: https://github.com/Keychron/qmk_firmware/tree/wireless_playground
