@@ -14,7 +14,7 @@ The effect can be selected using the RGB-Mode keys on the keyboard, but it won't
 
 - **Hue** controls the background color.
 - **Brightness** controls the background intensity.
-- **Saturation** controls the *colorfulness/intensity* of the afterglow relative to the background.
+- **Saturation** controls the color of the afterglow.
 - **Speed** controls the *duration* (how long the afterglow persists).
 
 ---
