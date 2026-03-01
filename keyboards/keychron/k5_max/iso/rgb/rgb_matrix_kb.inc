@@ -1,4 +1,4 @@
-// !!! DO NOT ADD #pragma once !!! //
+// DO NOT ADD #pragma once!11
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -9,14 +9,15 @@ RGB_MATRIX_EFFECT(REACTIVE_SOLID)
 extern volatile bool g_capslock;
 extern volatile bool g_numlock;
 
-// Provided by keymap.c
+// keymap.c
 extern bool g_rgb_held[RGB_MATRIX_LED_COUNT];
 
+// simple linear interpolation on bytes
 static inline uint8_t lerp8(uint8_t a, uint8_t b, uint8_t t) {
-    // t: 0..255 (0 -> a, 255 -> b)
     return a + (((int16_t)(b - a) * t) / 255);
 }
 
+// interpolate between two RGB values
 static inline RGB rgb_lerp(RGB a, RGB b, uint8_t t) {
     RGB out = {
         .r = lerp8(a.r, b.r, t),

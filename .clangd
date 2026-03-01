@@ -1,4 +1,11 @@
 CompileFlags:
-  Add: [-Wno-unknown-attributes, -Wno-maybe-uninitialized, -Wno-unknown-warning-option]
-  Remove: [-W*, -mcall-prologues]
-  Compiler: clang
+  Add:
+    - "-isystem"
+    - "/nix/store/hwss0kjy2iq5d39bhic4yk114m6vshsw-gcc-arm-embedded-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include"
+    - "-isystem"
+    - "/nix/store/hwss0kjy2iq5d39bhic4yk114m6vshsw-gcc-arm-embedded-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed"
+    - "-isystem"
+    - "/nix/store/hwss0kjy2iq5d39bhic4yk114m6vshsw-gcc-arm-embedded-10-2020-q4-major/arm-none-eabi/include"
+    - "-D__GNUC__=10"
+    - "-D__ARM_ARCH=7"
+  Compiler: "/nix/store/hwss0kjy2iq5d39bhic4yk114m6vshsw-gcc-arm-embedded-10-2020-q4-major/bin/arm-none-eabi-gcc"
