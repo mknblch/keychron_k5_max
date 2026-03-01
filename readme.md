@@ -21,8 +21,9 @@ The effect can be selected using the RGB-Mode keys on the keyboard, but it won't
 
 ## Build
 
-Use `make keychron/k5_max/iso/rgb:via` to build the firmware 
-and `make keychron/k5_max/iso/rgb:via:flash` to flash it.
+Use `make keychron/k5_max/iso/rgb:via` to build the firmware. 
+To flash the firmware run `make keychron/k5_max/iso/rgb:via:flash`, disconnect the keyboard and reconnect it 
+while holding down the reset button or ESCAPE.
 
 ## VIA
 
