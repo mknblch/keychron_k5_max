@@ -27,6 +27,10 @@ static inline RGB rgb_lerp(RGB a, RGB b, uint8_t t) {
     return out;
 }
 
+static inline bool is_highlighted_key(uint8_t i) {
+    return (i >= 20 && i <= 32) || (i >= 42 && i <= 53) || (i >= 63 && i <= 74) || (i >= 79 && i <= 90);
+}
+
 static bool REACTIVE_SOLID(effect_params_t *params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
@@ -80,9 +84,13 @@ static bool REACTIVE_SOLID(effect_params_t *params) {
             continue;
         }
 
-        // Normal keys: keep held keys solid special
+        bool highlighted = is_highlighted_key(i) && g_capslock;
+        RGB  start_rgb   = highlighted ? base_rgb : special_rgb;
+        RGB  end_rgb     = highlighted ? special_rgb : base_rgb;
+
+        // Normal keys: keep held keys solid
         if (g_rgb_held[i]) {
-            rgb_matrix_set_color(i, special_rgb.r, special_rgb.g, special_rgb.b);
+            rgb_matrix_set_color(i, start_rgb.r, start_rgb.g, start_rgb.b);
             continue;
         }
 
@@ -97,17 +105,17 @@ static bool REACTIVE_SOLID(effect_params_t *params) {
 
         if (tick != UINT16_MAX) {
             if (tick <= white_hold_ticks) {
-                rgb_matrix_set_color(i, special_rgb.r, special_rgb.g, special_rgb.b);
+                rgb_matrix_set_color(i, start_rgb.r, start_rgb.g, start_rgb.b);
             } else if (tick <= (uint16_t)(white_hold_ticks + fade_ticks)) {
                 uint16_t t      = (uint16_t)(tick - white_hold_ticks);
                 uint8_t  blendt = (uint8_t)(((uint32_t)t * 255u) / (uint32_t)fade_ticks);
-                RGB mixed = rgb_lerp(special_rgb, base_rgb, blendt);
+                RGB      mixed  = rgb_lerp(start_rgb, end_rgb, blendt);
                 rgb_matrix_set_color(i, mixed.r, mixed.g, mixed.b);
             } else {
-                rgb_matrix_set_color(i, base_rgb.r, base_rgb.g, base_rgb.b);
+                rgb_matrix_set_color(i, end_rgb.r, end_rgb.g, end_rgb.b);
             }
         } else {
-            rgb_matrix_set_color(i, base_rgb.r, base_rgb.g, base_rgb.b);
+            rgb_matrix_set_color(i, end_rgb.r, end_rgb.g, end_rgb.b);
         }
     }
 

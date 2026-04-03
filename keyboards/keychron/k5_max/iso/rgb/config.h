@@ -57,8 +57,8 @@
 #    define ENABLE_RGB_MATRIX_BREATHING
 #    define ENABLE_RGB_MATRIX_CYCLE_ALL
 
-#    define RGB_MATRIX_SAT_STEP 8
-#    define RGB_MATRIX_VAL_STEP 8
-#    define RGB_MATRIX_HUE_STEP 8
+#    define RGB_MATRIX_SAT_STEP 4
+#    define RGB_MATRIX_VAL_STEP 4
+#    define RGB_MATRIX_HUE_STEP 4
 
 #endif
